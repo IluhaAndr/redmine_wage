@@ -18,9 +18,10 @@ module Wage
         unless @criteria.empty?
           time_columns = %w(tyear tmonth tweek spent_on)
           @hours = []
-          columns = @criteria.collect{|criteria| @available_criteria[criteria][:sql]} + time_columns
           # Patch begin
-          sql = @scope.select("#{columns.join(', ')}, SUM(hours) as hours", "SUM(hours * rate) as wage").
+          columns = @criteria.collect{|criteria| @available_criteria[criteria][:sql]} + time_columns
+          sql = @scope.select("#{columns.join(', ')}, SUM(hours) as hours", "SUM(hours * coalesce(custom_values.value, 0) ) as wage").
+            eager_load(user: { custom_values: :custom_field }).where("custom_fields.name = 'Rate' OR custom_fields.name IS NULL").
             includes(:issue, :activity).group(columns).
             joins(@criteria.collect{|criteria| @available_criteria[criteria][:joins]}.compact).to_sql
           ActiveRecord::Base.connection.select_rows(sql).map{ |row|
