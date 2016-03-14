@@ -15,9 +15,6 @@
 <div class="total-hours">
 <p><%= l(:label_total_time) %>: <%= html_hours(l_hours(@total_hours)) %></p>
 </div>
-<div class="total-hours">
-<p><%= l(:label_total_wage) %>: <%= @total_wage.round(2) %></p>
-</div>
 
 <% unless @entries.empty? %>
 <%= render :partial => 'list', :locals => { :entries => @entries }%>
