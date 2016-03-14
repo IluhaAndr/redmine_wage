@@ -1,0 +1,3 @@
+= Redmine Wage Plugin
+
+Before installation add 'Rate' custom field to users and fill it.
