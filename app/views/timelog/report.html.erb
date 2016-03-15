@@ -35,7 +35,7 @@
 
 <% # Patch begin %>
 <div class="total-hours">
-<p><%= l(:label_total_wage) %>: <%= @report.total_wage.round(2) %></p>
+<p><%= l(:field_wage) %>: <%= @report.total_wage.round(2) %></p>
 </div>
 <% # Patch end %>
 
@@ -53,7 +53,7 @@
 <% end %>
   <th class="total" style="width:<%= columns_width %>%;"><%= l(:label_total_time) %></th>
   <% # Patch begin %>
-  <th class="total" style="width:<%= columns_width %>%;"><%= l(:label_total_wage) %></th>
+  <th class="total" style="width:<%= columns_width %>%;"><%= l(:field_wage) %></th>
   <% # Patch end %>
 </tr>
 </thead>

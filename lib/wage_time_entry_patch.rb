@@ -1,5 +1,3 @@
-require_dependency 'redmine/helpers/time_report'
-
 module Wage
   module TimeEntryPatch
     def self.included(base)
@@ -9,8 +7,8 @@ module Wage
     module InstanceMethods
 
       def wage
-        field = available_custom_fields.find { |c_f| c_f.name == "Rate" }
-        custom_field_value(field).to_f * hours
+        field = user.available_custom_fields.find { |c_f| c_f.name == "Rate" }
+        user.custom_field_value(field).to_f * hours
       end
 
     end

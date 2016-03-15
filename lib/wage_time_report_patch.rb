@@ -21,7 +21,7 @@ module Wage
           # Patch begin
           columns = @criteria.collect{|criteria| @available_criteria[criteria][:sql]} + time_columns
           sql = @scope.select("#{columns.join(', ')}, SUM(hours) as hours", "SUM(hours * coalesce(custom_values.value, 0) ) as wage").
-            eager_load(user: { custom_values: :custom_field }).where("custom_fields.name = 'Rate' OR custom_fields.name IS NULL").
+            eager_load(user: { custom_values: :custom_field }).where("custom_fields.name = 'Rate' OR custom_fields.id IS NULL").
             includes(:issue, :activity).group(columns).
             joins(@criteria.collect{|criteria| @available_criteria[criteria][:joins]}.compact).to_sql
           ActiveRecord::Base.connection.select_rows(sql).map{ |row|
